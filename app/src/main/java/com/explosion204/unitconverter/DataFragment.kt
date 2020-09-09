@@ -15,6 +15,7 @@ class DataFragment : Fragment() {
     lateinit var convertedVal: TextView
     lateinit var initialUnit: Spinner
     lateinit var convertedUnit: Spinner
+    private var isFloat = false
     //lateinit var converter: Converter
 
     override fun onCreateView(
@@ -37,12 +38,20 @@ class DataFragment : Fragment() {
         var newValue: String = initialVal.text.toString()
         when (num) {
             -2 -> {
-                newValue += "."
+                // prevent from using more than one dot (including empty textview)
+                if (!isFloat && !newValue.isEmpty()) {
+                    newValue += "."
+                    isFloat = true
+                }
             }
             -1 -> {
-                // truncate sequence by 1 character from end
-                if (!initialVal.text.isEmpty())
+                // truncate sequence by 1 character from end (and control dot presence)
+                if (!initialVal.text.isEmpty()) {
+                    if (initialVal.text[initialVal.text.length - 1] == '.')
+                        isFloat = false
+
                     newValue = initialVal.text.substring(0, initialVal.text.length - 1)
+                }
                 else
                     newValue = ""
             }

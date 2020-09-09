@@ -12,13 +12,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/text_view_border"
-        android:text="2.2"
         android:textAlignment="center"
         android:textSize="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/initialUnit"
-        app:layout_constraintRight_toLeftOf="@+id/convertedVal">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/convertedVal"
+        app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
@@ -27,14 +26,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/text_view_border"
-        android:text="1.10000000"
         android:textAlignment="center"
         android:textSize="30dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/convertedUnit"
-        app:layout_constraintLeft_toRightOf="@id/initialVal">
-    </TextView>
+        app:layout_constraintLeft_toRightOf="@id/initialVal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <Spinner
         android:id="@+id/initialUnit"
