@@ -6,38 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".DataFragment">
 
-    <TextView
-
-        android:id="@+id/initialVal"
+    <HorizontalScrollView
+        android:id="@+id/leftScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/text_view_border"
-        android:textAlignment="center"
-        android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@id/initialUnit"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/convertedVal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintRight_toLeftOf="@+id/rightScrollView"
+        app:layout_constraintTop_toTopOf="parent" >
 
-    </TextView>
 
-    <TextView
-        android:id="@+id/convertedVal"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/initialVal"
+            android:textSize="30dp">
+        </TextView>
+
+
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/rightScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/text_view_border"
-        android:textAlignment="center"
-        android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@id/convertedUnit"
-        app:layout_constraintLeft_toRightOf="@id/initialVal"
+        app:layout_constraintLeft_toRightOf="@id/leftScrollView"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/convertedVal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="30dp">
+
+        </TextView>
+
+    </HorizontalScrollView>
 
     <Spinner
         android:id="@+id/initialUnit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/initialVal"
+        app:layout_constraintTop_toBottomOf="@id/leftScrollView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/convertedUnit">
@@ -47,9 +61,9 @@
         android:id="@+id/convertedUnit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/convertedVal"
+        app:layout_constraintTop_toBottomOf="@id/rightScrollView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/initialVal"
+        app:layout_constraintLeft_toRightOf="@id/initialUnit"
         app:layout_constraintRight_toRightOf="parent">
     </Spinner>
 
