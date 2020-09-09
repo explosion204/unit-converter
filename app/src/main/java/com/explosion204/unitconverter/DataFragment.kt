@@ -41,7 +41,10 @@ class DataFragment : Fragment() {
             }
             -1 -> {
                 // truncate sequence by 1 character from end
-                newValue = initialVal.text.substring(0, initialVal.text.length - 1)
+                if (!initialVal.text.isEmpty())
+                    newValue = initialVal.text.substring(0, initialVal.text.length - 1)
+                else
+                    newValue = ""
             }
             else -> {
                 newValue += num.toString();
