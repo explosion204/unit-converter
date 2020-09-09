@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KeyboardFragmant">
+
+    <Button
+        android:id="@+id/numButton1"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/numButton4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/numButton2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/numButton2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="2"
+        app:layout_constraintBottom_toTopOf="@+id/numButton5"
+        app:layout_constraintLeft_toRightOf="@+id/numButton1"
+        app:layout_constraintRight_toLeftOf="@+id/numButton3"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/numButton3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="3"
+        app:layout_constraintBottom_toTopOf="@+id/numButton6"
+        app:layout_constraintLeft_toRightOf="@+id/numButton2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/numButton4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="4"
+        app:layout_constraintBottom_toTopOf="@+id/numButton7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/numButton5"
+        app:layout_constraintTop_toBottomOf="@+id/numButton1"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/numButton5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="5"
+        app:layout_constraintBottom_toTopOf="@+id/numButton8"
+        app:layout_constraintLeft_toRightOf="@+id/numButton4"
+        app:layout_constraintRight_toLeftOf="@+id/numButton6"
+        app:layout_constraintTop_toBottomOf="@+id/numButton2"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/numButton6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="6"
+        app:layout_constraintBottom_toTopOf="@+id/numButton9"
+        app:layout_constraintLeft_toRightOf="@+id/numButton5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numButton3"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/numButton7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="7"
+        app:layout_constraintBottom_toTopOf="@+id/dotButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/numButton8"
+        app:layout_constraintTop_toBottomOf="@+id/numButton4"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/numButton8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="8"
+        app:layout_constraintBottom_toTopOf="@+id/numButton0"
+        app:layout_constraintLeft_toRightOf="@id/numButton7"
+        app:layout_constraintRight_toLeftOf="@id/numButton9"
+        app:layout_constraintTop_toBottomOf="@id/numButton5"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/numButton9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="9"
+        app:layout_constraintBottom_toTopOf="@+id/deleteButton"
+        app:layout_constraintLeft_toRightOf="@+id/numButton8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numButton6"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/dotButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#838181"
+        android:text="."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/numButton0"
+        app:layout_constraintTop_toBottomOf="@+id/numButton7" />
+
+    <Button
+        android:id="@+id/numButton0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/dotButton"
+        app:layout_constraintRight_toLeftOf="@+id/deleteButton"
+        app:layout_constraintTop_toBottomOf="@+id/numButton8"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#838181"
+        android:text="←"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/numButton0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numButton9"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
