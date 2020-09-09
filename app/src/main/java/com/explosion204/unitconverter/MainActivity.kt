@@ -39,7 +39,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        data_fragment.arguments = Bundle().apply {
 //            putString("converter", Converter())
 //        }
-        
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        //setSupportActionBar(toolbar)
 
         //val fab: FloatingActionButton = findViewById(R.id.fab)
 //        fab.setOnClickListener { view ->
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+        onNavigationItemSelected(menu.findItem(R.id.category_length))
         return true
     }
 
@@ -81,6 +84,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         data_fragment.initialUnit.adapter = adapter
         data_fragment.convertedUnit.adapter = adapter
+
+        drawerLayout.closeDrawer(Gravity.LEFT)
+
         return true
     }
 
