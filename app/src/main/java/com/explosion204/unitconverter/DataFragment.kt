@@ -37,6 +37,10 @@ class DataFragment : Fragment() {
     fun editInitialValue(num: Int) {
         var newValue: String = initialVal.text.toString()
         when (num) {
+            -3 -> {
+                newValue = ""
+                isFloat = false
+            }
             -2 -> {
                 // prevent from using more than one dot (including empty textview)
                 if (!isFloat && !newValue.isEmpty()) {
@@ -60,6 +64,7 @@ class DataFragment : Fragment() {
                     newValue = ""
             }
             0 -> {
+                // prevent next input situation: 000000.1234
                 if (!(newValue.length == 1 && newValue[0] == '0')) {
                     newValue += "0"
                 }

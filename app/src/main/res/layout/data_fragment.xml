@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/initialVal"
-            android:textSize="30dp">
+            android:textSize="30dp"
+            android:maxLength="20">
         </TextView>
 
 
@@ -41,7 +42,8 @@
             android:id="@+id/convertedVal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="30dp">
+            android:textSize="30dp"
+            android:maxLength="20">
 
         </TextView>
 

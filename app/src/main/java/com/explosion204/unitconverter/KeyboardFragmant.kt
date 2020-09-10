@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SearchView
 
-class KeyboardFragmant : Fragment(), View.OnClickListener {
+class KeyboardFragmant : Fragment(), View.OnClickListener, View.OnLongClickListener {
     lateinit var callback: onNumButtonClickListener
 
     fun setNumpadClickListener(numpadCallback: onNumButtonClickListener) {
@@ -38,6 +38,7 @@ class KeyboardFragmant : Fragment(), View.OnClickListener {
         v.findViewById<Button>(R.id.numButton0).setOnClickListener(this)
         v.findViewById<Button>(R.id.dotButton).setOnClickListener(this)
         v.findViewById<Button>(R.id.deleteButton).setOnClickListener(this)
+        v.findViewById<Button>(R.id.deleteButton).setOnLongClickListener(this)
 
         return v
     }
@@ -55,5 +56,13 @@ class KeyboardFragmant : Fragment(), View.OnClickListener {
                 callback.onNumButtonClick(btn.text.toString().toInt())
             }
         }
+    }
+
+    override fun onLongClick(view: View): Boolean {
+        if ((view as Button).id == R.id.deleteButton) {
+            callback.onNumButtonClick(-3)
+        }
+
+        return true;
     }
 }
