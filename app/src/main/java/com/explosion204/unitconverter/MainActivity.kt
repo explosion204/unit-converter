@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         initRules()
+        setContentView(R.layout.activity_main)
         data_fragment = fr_data as DataFragment
 
 
@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val menuItem = findViewById<NavigationView>(R.id.nav_view).menu.getItem(0)
         onNavigationItemSelected(menuItem)
+        //data_fragment.converter = Converter(categories[menuItem.toString()] as JSONObject)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,14 +69,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var adapter = when(item.itemId) {
             R.id.category_length -> {
+                data_fragment.converter = Converter(categories["Length"] as JSONObject)
                 ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     (categories["Length"] as JSONObject).keys().iterator().asSequence().toList())
             }
             R.id.category_weight -> {
+                data_fragment.converter = Converter(categories["Weight"] as JSONObject)
                 ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     (categories["Weight"] as JSONObject).keys().iterator().asSequence().toList())
             }
             else -> {
+                data_fragment.converter = Converter(categories["Temperature"] as JSONObject)
                 ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     (categories["Temperature"] as JSONObject).keys().iterator().asSequence().toList())
             }
@@ -94,6 +98,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onAttachFragment(fragment)
         if (fragment is KeyboardFragmant) {
             fragment.setNumpadClickListener(this)
+        }
+        if (fragment is DataFragment) {
+            fragment.converter = Converter(categories["Length"] as JSONObject)
         }
 
     }
