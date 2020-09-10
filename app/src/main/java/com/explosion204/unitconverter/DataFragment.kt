@@ -43,6 +43,10 @@ class DataFragment : Fragment() {
                     newValue += "."
                     isFloat = true
                 }
+                else if (!isFloat && newValue.isEmpty()) {
+                    newValue += "0."
+                    isFloat = true
+                }
             }
             -1 -> {
                 // truncate sequence by 1 character from end (and control dot presence)
@@ -54,6 +58,11 @@ class DataFragment : Fragment() {
                 }
                 else
                     newValue = ""
+            }
+            0 -> {
+                if (!(newValue.length == 1 && newValue[0] == '0')) {
+                    newValue += "0"
+                }
             }
             else -> {
                 newValue += num.toString();
