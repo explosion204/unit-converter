@@ -3,18 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/category_length"
-            android:title="@string/category_length"
-            android:checked="true" />
-        <item
-            android:id="@+id/category_weight"
-            android:title="@string/category_weight"
-            android:checked="true" />
-        <item
-            android:id="@+id/category_temperature"
-            android:title="@string/category_temperature"
-            android:checked="true" />
-    </group>
+    <item android:title="Categories">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/category_length"
+                    android:title="@string/category_length" />
+                <item
+                    android:id="@+id/category_weight"
+                    android:title="@string/category_weight" />
+                <item
+                    android:id="@+id/category_temperature"
+                    android:title="@string/category_temperature" />
+            </group>
+        </menu>
+    </item>
+
+
 </menu>

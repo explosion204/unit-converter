@@ -24,6 +24,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:id="@+id/categoriesButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -34,6 +35,18 @@
                     app:layout_constraintVertical_bias="1.0"
                     android:paddingRight="30dp"
                     android:onClick="onMenuButtonClick"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unit Converter"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/categoriesButton"
+                    android:paddingRight="70dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,12 +1,10 @@
 package com.explosion204.unitconverter
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 
@@ -22,14 +20,12 @@ class DataFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         var v = inflater.inflate(R.layout.data_fragment, container, false)
 
         initialVal = v!!.findViewById(R.id.initialVal)
         convertedVal = v!!.findViewById(R.id.convertedVal)
         initialUnit = v!!.findViewById(R.id.initialUnit)
         convertedUnit = v!!.findViewById(R.id.convertedUnit)
-        //converter = arguments.get("converter") as Converter
 
         return v
     }

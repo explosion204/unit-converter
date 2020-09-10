@@ -7,10 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.ui.AppBarConfiguration
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.content_main.*
 import org.json.JSONObject
@@ -19,44 +17,28 @@ import java.io.InputStreamReader
 import java.io.StringWriter
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, KeyboardFragmant.onNumButtonClickListener {
+class MainActivity : AppCompatActivity(),
+                     NavigationView.OnNavigationItemSelectedListener,
+                     KeyboardFragment.OnNumButtonClickListener {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
-    private lateinit var data_fragment: DataFragment
-    //private lateinit var converter: Converter
+    private lateinit var dataFragment: DataFragment
     private lateinit var categories: JSONObject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRules()
         setContentView(R.layout.activity_main)
-        data_fragment = fr_data as DataFragment
 
-
-
-//        data_fragment.arguments = Bundle().apply {
-//            putString("converter", Converter())
-//        }
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        //setSupportActionBar(toolbar)
-
-        //val fab: FloatingActionButton = findViewById(R.id.fab)
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
-
-
+        dataFragment = fr_data as DataFragment
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this);
 
-        val menuItem = findViewById<NavigationView>(R.id.nav_view).menu.getItem(0)
+        var menuItem = findViewById<NavigationView>(R.id.nav_view).menu.getItem(0).subMenu.getItem(0)
+        navView.setCheckedItem(menuItem)
         onNavigationItemSelected(menuItem)
-        //data_fragment.converter = Converter(categories[menuItem.toString()] as JSONObject)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -69,25 +51,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var adapter = when(item.itemId) {
             R.id.category_length -> {
-                data_fragment.converter = Converter(categories["Length"] as JSONObject)
-                ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                dataFragment.converter = Converter(categories["Length"] as JSONObject)
+                ArrayAdapter<String>(this, R.layout.spinner_unit_item,
                     (categories["Length"] as JSONObject).keys().iterator().asSequence().toList())
             }
             R.id.category_weight -> {
-                data_fragment.converter = Converter(categories["Weight"] as JSONObject)
-                ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                dataFragment.converter = Converter(categories["Weight"] as JSONObject)
+                ArrayAdapter<String>(this, R.layout.spinner_unit_item,
                     (categories["Weight"] as JSONObject).keys().iterator().asSequence().toList())
             }
             else -> {
-                data_fragment.converter = Converter(categories["Temperature"] as JSONObject)
-                ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                dataFragment.converter = Converter(categories["Temperature"] as JSONObject)
+                ArrayAdapter<String>(this, R.layout.spinner_unit_item,
                     (categories["Temperature"] as JSONObject).keys().iterator().asSequence().toList())
             }
 
         }
 
-        data_fragment.initialUnit.adapter = adapter
-        data_fragment.convertedUnit.adapter = adapter
+        dataFragment.initialUnit.adapter = adapter
+        dataFragment.convertedUnit.adapter = adapter
 
         drawerLayout.closeDrawer(Gravity.LEFT)
 
@@ -96,7 +78,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
-        if (fragment is KeyboardFragmant) {
+        if (fragment is KeyboardFragment) {
             fragment.setNumpadClickListener(this)
         }
         if (fragment is DataFragment) {
@@ -106,7 +88,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNumButtonClick(num: Int) {
-        data_fragment.editInitialValue(num)
+        dataFragment.editInitialValue(num)
     }
 
     fun onMenuButtonClick(view: View) {

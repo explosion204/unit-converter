@@ -1,22 +1,20 @@
 package com.explosion204.unitconverter
 
 import android.os.Bundle
-import android.os.ProxyFileDescriptorCallback
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.SearchView
 
-class KeyboardFragmant : Fragment(), View.OnClickListener, View.OnLongClickListener {
-    lateinit var callback: onNumButtonClickListener
+class KeyboardFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
+    lateinit var callback: OnNumButtonClickListener
 
-    fun setNumpadClickListener(numpadCallback: onNumButtonClickListener) {
+    fun setNumpadClickListener(numpadCallback: OnNumButtonClickListener) {
         this.callback = numpadCallback
     }
 
-    interface onNumButtonClickListener {
+    interface OnNumButtonClickListener {
         fun onNumButtonClick(num: Int)
     }
 
