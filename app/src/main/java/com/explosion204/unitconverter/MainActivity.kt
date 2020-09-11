@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -19,8 +20,8 @@ import java.io.StringWriter
 
 class MainActivity : AppCompatActivity(),
                      NavigationView.OnNavigationItemSelectedListener,
-                     KeyboardFragment.OnNumButtonClickListener {
-
+                     KeyboardFragment.OnNumButtonClickListener
+{
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
     private lateinit var dataFragment: DataFragment
@@ -49,42 +50,30 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        var adapter = when(item.itemId) {
+        when(item.itemId) {
             R.id.category_length -> {
-                dataFragment.converter = Converter(categories["Length"] as JSONObject)
-                ArrayAdapter<String>(this, R.layout.spinner_unit_item,
-                    (categories["Length"] as JSONObject).keys().iterator().asSequence().toList())
+                dataFragment.modifyConverter(categories["Length"] as JSONObject)
             }
             R.id.category_weight -> {
-                dataFragment.converter = Converter(categories["Weight"] as JSONObject)
-                ArrayAdapter<String>(this, R.layout.spinner_unit_item,
-                    (categories["Weight"] as JSONObject).keys().iterator().asSequence().toList())
+                dataFragment.modifyConverter(categories["Weight"] as JSONObject)
             }
             else -> {
-                dataFragment.converter = Converter(categories["Temperature"] as JSONObject)
-                ArrayAdapter<String>(this, R.layout.spinner_unit_item,
-                    (categories["Temperature"] as JSONObject).keys().iterator().asSequence().toList())
+                dataFragment.modifyConverter(categories["Temperature"] as JSONObject)
             }
 
         }
 
-        dataFragment.initialUnit.adapter = adapter
-        dataFragment.convertedUnit.adapter = adapter
-
         drawerLayout.closeDrawer(Gravity.LEFT)
-
         return true
     }
+
+
 
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
         if (fragment is KeyboardFragment) {
             fragment.setNumpadClickListener(this)
         }
-        if (fragment is DataFragment) {
-            fragment.converter = Converter(categories["Length"] as JSONObject)
-        }
-
     }
 
     override fun onNumButtonClick(num: Int) {

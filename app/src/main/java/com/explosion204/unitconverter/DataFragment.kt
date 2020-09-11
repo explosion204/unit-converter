@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import org.json.JSONObject
 
-class DataFragment : Fragment() {
-    lateinit var initialVal: TextView
-    lateinit var convertedVal: TextView
-    lateinit var initialUnit: Spinner
-    lateinit var convertedUnit: Spinner
+class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+    private lateinit var initialVal: TextView
+    private lateinit var convertedVal: TextView
+    private lateinit var initialUnit: Spinner
+    private lateinit var convertedUnit: Spinner
     private var isFloat = false
-    var converter: Converter? = null
+    private var converter: Converter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +27,31 @@ class DataFragment : Fragment() {
         initialUnit = v!!.findViewById(R.id.initialUnit)
         convertedUnit = v!!.findViewById(R.id.convertedUnit)
 
+        v!!.findViewById<Button>(R.id.reverseButton).setOnClickListener(this)
+        initialUnit.onItemSelectedListener = this
+        convertedUnit.onItemSelectedListener = this
+
         return v
     }
+
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.reverseButton -> {
+                var tmp = initialUnit.selectedItemPosition
+                initialUnit.setSelection(convertedUnit.selectedItemPosition)
+                convertedUnit.setSelection(tmp)
+
+                initialVal.text = convertedVal.text
+                editConvertedValue()
+            }
+        }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+        editConvertedValue();
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     fun editInitialValue(num: Int) {
         var newValue: String = initialVal.text.toString()
@@ -39,7 +62,7 @@ class DataFragment : Fragment() {
             }
             -2 -> {
                 // prevent from using more than one dot (including empty textview)
-                if (!isFloat && !newValue.isEmpty()) {
+                if (!isFloat && newValue.isNotEmpty()) {
                     newValue += "."
                     isFloat = true
                 }
@@ -71,19 +94,31 @@ class DataFragment : Fragment() {
         }
 
         initialVal.text = newValue
+        editConvertedValue()
+    }
 
-        // converting
-        if (newValue.isNotEmpty()) {
-            if (newValue[newValue.length - 1] == '.') {
-                newValue += "0"
+    private fun editConvertedValue() {
+        var initialValue = initialVal.text.toString()
+        if (initialValue.isNotEmpty()) {
+            if (initialValue[initialValue.length - 1] == '.') {
+                initialValue += "0"
             }
 
             convertedVal.text = converter?.convert(initialUnit.selectedItem.toString(),
-                                convertedUnit.selectedItem.toString(), newValue.toDouble())
-                                .toString()
+                convertedUnit.selectedItem.toString(), initialValue.toDouble())
+                .toString()
         }
         else {
-             convertedVal.text = ""
+            convertedVal.text = ""
         }
+    }
+
+    fun modifyConverter(category: JSONObject) {
+        converter = Converter(category)
+        var adapter = ArrayAdapter<String>(activity!!.applicationContext, R.layout.spinner_unit_item,
+            category.keys().iterator().asSequence().toList())
+
+        initialUnit.adapter = adapter
+        convertedUnit.adapter = adapter
     }
 }
