@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 
 class KeyboardFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
-    lateinit var callback: OnNumButtonClickListener
+    private lateinit var callback: OnNumButtonClickListener
 
     fun setNumpadClickListener(numpadCallback: OnNumButtonClickListener) {
         this.callback = numpadCallback

@@ -1,5 +1,8 @@
 package com.explosion204.unitconverter
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import org.json.JSONObject
+import org.w3c.dom.Text
 
 class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
     private lateinit var initialVal: TextView
@@ -15,6 +19,7 @@ class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
     private lateinit var convertedUnit: Spinner
     private var isFloat = false
     private var converter: Converter? = null
+    private lateinit var clipboard: ClipboardManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,14 +27,16 @@ class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
     ): View? {
         var v = inflater.inflate(R.layout.data_fragment, container, false)
 
+        clipboard = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+
         initialVal = v!!.findViewById(R.id.initialVal)
         convertedVal = v!!.findViewById(R.id.convertedVal)
         initialUnit = v!!.findViewById(R.id.initialUnit)
         convertedUnit = v!!.findViewById(R.id.convertedUnit)
 
         v!!.findViewById<Button>(R.id.reverseButton).setOnClickListener(this)
-        initialUnit.onItemSelectedListener = this
-        convertedUnit.onItemSelectedListener = this
+        initialVal.setOnClickListener(this)
+        convertedVal.setOnClickListener(this)
 
         return v
     }
@@ -43,6 +50,11 @@ class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
 
                 initialVal.text = convertedVal.text
                 editConvertedValue()
+            }
+            R.id.initialVal, R.id.convertedVal -> {
+                var clip = ClipData.newPlainText("initial or converted value", (view as TextView).text)
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
             }
         }
     }
