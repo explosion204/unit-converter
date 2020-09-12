@@ -34,7 +34,7 @@ class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
         initialUnit = v!!.findViewById(R.id.initialUnit)
         convertedUnit = v!!.findViewById(R.id.convertedUnit)
 
-        v!!.findViewById<Button>(R.id.reverseButton).setOnClickListener(this)
+        v!!.findViewById<ImageButton>(R.id.reverseButton).setOnClickListener(this)
         initialVal.setOnClickListener(this)
         convertedVal.setOnClickListener(this)
 
