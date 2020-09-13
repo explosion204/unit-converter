@@ -14,7 +14,7 @@
                     android:title="@string/category_weight" />
                 <item
                     android:id="@+id/category_temperature"
-                    android:title="@string/category_temperature" />
+                    android:title="@string/category_volume" />
             </group>
         </menu>
     </item>

@@ -1,12 +1,11 @@
 package com.explosion204.unitconverter
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity(),
                 dataFragment.modifyConverter(categories["Weight"] as JSONObject)
             }
             else -> {
-                dataFragment.modifyConverter(categories["Temperature"] as JSONObject)
+                dataFragment.modifyConverter(categories["Volume"] as JSONObject)
             }
 
         }
@@ -82,6 +81,13 @@ class MainActivity : AppCompatActivity(),
 
     fun onMenuButtonClick(view: View) {
         drawerLayout.openDrawer(Gravity.LEFT)
+    }
+
+    fun onRotateButtonClick(view: View) {
+        requestedOrientation = when(requestedOrientation) {
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            else -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     private fun initRules() {

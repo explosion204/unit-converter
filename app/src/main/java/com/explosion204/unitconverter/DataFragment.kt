@@ -29,14 +29,16 @@ class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
 
         clipboard = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
-        initialVal = v!!.findViewById(R.id.initialVal)
-        convertedVal = v!!.findViewById(R.id.convertedVal)
-        initialUnit = v!!.findViewById(R.id.initialUnit)
-        convertedUnit = v!!.findViewById(R.id.convertedUnit)
+        initialVal = v.findViewById(R.id.initialVal)
+        convertedVal = v.findViewById(R.id.convertedVal)
+        initialUnit = v.findViewById(R.id.initialUnit)
+        convertedUnit = v.findViewById(R.id.convertedUnit)
 
-        v!!.findViewById<ImageButton>(R.id.reverseButton).setOnClickListener(this)
+        v.findViewById<ImageButton>(R.id.reverseButton).setOnClickListener(this)
         initialVal.setOnClickListener(this)
         convertedVal.setOnClickListener(this)
+        initialUnit.onItemSelectedListener = this
+        convertedUnit.onItemSelectedListener = this
 
         return v
     }
