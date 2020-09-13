@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import org.json.JSONObject
-import org.w3c.dom.Text
 
-class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+
+class DataFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var initialVal: TextView
     private lateinit var convertedVal: TextView
     private lateinit var initialUnit: Spinner
@@ -34,18 +34,9 @@ class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
         initialUnit = v.findViewById(R.id.initialUnit)
         convertedUnit = v.findViewById(R.id.convertedUnit)
 
-        v.findViewById<ImageButton>(R.id.reverseButton).setOnClickListener(this)
-        initialVal.setOnClickListener(this)
-        convertedVal.setOnClickListener(this)
-        initialUnit.onItemSelectedListener = this
-        convertedUnit.onItemSelectedListener = this
-
-        return v
-    }
-
-    override fun onClick(view: View) {
-        when (view.id) {
-            R.id.reverseButton -> {
+        if (BuildConfig.FLAVOR.equals("premium")) {
+            var reverseButtonId = resources.getIdentifier("reverseButton", "id", "com.explosion204.unitconverter")
+            v.findViewById<ImageButton>(reverseButtonId).setOnClickListener {
                 var tmp = initialUnit.selectedItemPosition
                 initialUnit.setSelection(convertedUnit.selectedItemPosition)
                 convertedUnit.setSelection(tmp)
@@ -53,12 +44,21 @@ class DataFragment : Fragment(), View.OnClickListener, AdapterView.OnItemSelecte
                 initialVal.text = convertedVal.text
                 editConvertedValue()
             }
-            R.id.initialVal, R.id.convertedVal -> {
-                var clip = ClipData.newPlainText("initial or converted value", (view as TextView).text)
-                clipboard.setPrimaryClip(clip)
-                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
-            }
         }
+
+        initialVal.setOnClickListener(::onTextViewClick)
+        convertedVal.setOnClickListener(::onTextViewClick)
+        initialUnit.onItemSelectedListener = this
+        convertedUnit.onItemSelectedListener = this
+
+        return v
+    }
+
+
+    fun onTextViewClick(view: View) {
+        var clip = ClipData.newPlainText("initial or converted value", (view as TextView).text)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {

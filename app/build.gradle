@@ -25,7 +25,12 @@ android {
 
     flavorDimensions "version"
     productFlavors {
+        common {
 
+        }
+        premium {
+
+        }
     }
 
     compileOptions {

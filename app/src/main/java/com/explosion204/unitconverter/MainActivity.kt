@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
-        onNavigationItemSelected(menu.findItem(R.id.category_length))
         return true
     }
 
@@ -65,8 +63,6 @@ class MainActivity : AppCompatActivity(),
         drawerLayout.closeDrawer(Gravity.LEFT)
         return true
     }
-
-
 
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
