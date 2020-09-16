@@ -15,6 +15,8 @@ class DataViewModel : ViewModel(), OnNumButtonClickListener {
     var convertedVal: MutableLiveData<String> = MutableLiveData("")
     var initialUnit: MutableLiveData<String> = MutableLiveData("")
     var convertedUnit: MutableLiveData<String> = MutableLiveData("")
+    var initialUnitPos: MutableLiveData<Int> = MutableLiveData(0)
+    var convertedUnitPos: MutableLiveData<Int> = MutableLiveData(0)
 
     private var isFloat = false;
     var initRequired = true

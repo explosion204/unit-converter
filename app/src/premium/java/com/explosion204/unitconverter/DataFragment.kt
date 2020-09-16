@@ -54,6 +54,16 @@ class DataFragment : Fragment(), AdapterView.OnItemSelectedListener {
             convertedVal.text = newVal
         })
 
+        // observe unit changes
+        dataViewModel.initialUnit.observe(viewLifecycleOwner, Observer { newVal ->
+            var viewAdapter = initialUnit.adapter as ArrayAdapter<String>
+            initialUnit.setSelection(viewAdapter.getPosition(newVal))
+        })
+        dataViewModel.convertedUnit.observe(viewLifecycleOwner, Observer { newVal ->
+            var viewAdapter = convertedUnit.adapter as ArrayAdapter<String>
+            convertedUnit.setSelection(viewAdapter.getPosition(newVal))
+        })
+
         // get controls
         clipboard = context!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         initialVal = v.findViewById(R.id.initialVal)
@@ -62,11 +72,11 @@ class DataFragment : Fragment(), AdapterView.OnItemSelectedListener {
         convertedUnit = v.findViewById(R.id.convertedUnit)
 
         v.findViewById<ImageButton>(R.id.reverseButton).setOnClickListener {
-            dataViewModel.initialUnit = dataViewModel.convertedUnit.also {
-                dataViewModel.convertedUnit = dataViewModel.initialUnit
+            dataViewModel.initialUnit.value = dataViewModel.convertedUnit.value.also {
+                dataViewModel.convertedUnit.value = dataViewModel.initialUnit.value
             }
-            dataViewModel.initialVal = dataViewModel.convertedVal.also {
-                dataViewModel.convertedVal = dataViewModel.initialVal
+            dataViewModel.initialVal.value = dataViewModel.convertedVal.value.also {
+                dataViewModel.convertedVal.value = dataViewModel.initialVal.value
             }
             dataViewModel.convertInitialValue()
         }
