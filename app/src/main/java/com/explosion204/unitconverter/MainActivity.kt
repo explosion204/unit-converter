@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.iterator
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,11 +42,24 @@ class MainActivity : AppCompatActivity(),
         //dataFragment = fr_data as DataFragment
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
-        navView.setNavigationItemSelectedListener(this);
+        navView.setNavigationItemSelectedListener(this)
 
-        var menuItem = findViewById<NavigationView>(R.id.nav_view).menu.getItem(0).subMenu.getItem(0)
-        navView.setCheckedItem(menuItem)
-        onNavigationItemSelected(menuItem)
+        // set selected item in navigation view
+        var menuItems = findViewById<NavigationView>(R.id.nav_view).menu.getItem(0).subMenu
+        if (dataViewModel.currentCategoryName.isEmpty()) {
+            var menuItem = menuItems.getItem(0)
+            navView.setCheckedItem(menuItem)
+            onNavigationItemSelected(menuItem)
+        }
+        else {
+            for (menuItem in menuItems) {
+                if (menuItem.title.toString() == dataViewModel.currentCategoryName) {
+                    navView.setCheckedItem(menuItem)
+                    onNavigationItemSelected(menuItem)
+                    break
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

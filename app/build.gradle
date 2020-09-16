@@ -51,10 +51,23 @@ android {
     flavorDimensions "version"
     productFlavors {
         common {
-
+            dimension "version"
+            applicationId "com.explosion204.unitconverter.common"
+            versionName getVersionName()
         }
         premium {
+            dimension "version"
+            applicationId "com.explosion204.unitconverter.premium"
+            versionName getVersionName() + "-premium"
+        }
+    }
 
+    sourceSets {
+        common {
+            java.srcDirs("src/main/java", "src/common/java")
+        }
+        premium {
+            java.srcDirs("src/premium/java", "src/main/java")
         }
     }
 

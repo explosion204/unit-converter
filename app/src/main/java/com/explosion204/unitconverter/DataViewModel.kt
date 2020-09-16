@@ -9,6 +9,7 @@ class DataViewModel : ViewModel(), OnNumButtonClickListener {
     private lateinit var converter: Converter
     private lateinit var categories: JSONObject
     var currentCategory: MutableLiveData<JSONObject> = MutableLiveData(JSONObject())
+    var currentCategoryName = ""
 
     var initialVal: MutableLiveData<String> = MutableLiveData("")
     var convertedVal: MutableLiveData<String> = MutableLiveData("")
@@ -25,6 +26,7 @@ class DataViewModel : ViewModel(), OnNumButtonClickListener {
     }
 
     fun setCurrentCategory(categoryName: String) {
+        currentCategoryName = categoryName
         currentCategory.value = categories[categoryName] as JSONObject
         converter = Converter(currentCategory.value!!)
     }

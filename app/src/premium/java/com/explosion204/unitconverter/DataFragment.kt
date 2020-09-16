@@ -9,11 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.explosion204.unitconverter.DataViewModel
+import com.explosion204.unitconverter.R
 import org.json.JSONObject
 
 
@@ -62,9 +61,7 @@ class DataFragment : Fragment(), AdapterView.OnItemSelectedListener {
         initialUnit = v.findViewById(R.id.initialUnit)
         convertedUnit = v.findViewById(R.id.convertedUnit)
 
-        TODO("Change that")
-        var reverseButtonId = resources.getIdentifier("reverseButton", "id", "com.explosion204.unitconverter")
-        v.findViewById<ImageButton>(reverseButtonId).setOnClickListener {
+        v.findViewById<ImageButton>(R.id.reverseButton).setOnClickListener {
             dataViewModel.initialUnit = dataViewModel.convertedUnit.also {
                 dataViewModel.convertedUnit = dataViewModel.initialUnit
             }
@@ -73,7 +70,6 @@ class DataFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
             dataViewModel.convertInitialValue()
         }
-
 
         initialVal.setOnClickListener(::onTextViewClick)
         convertedVal.setOnClickListener(::onTextViewClick)
