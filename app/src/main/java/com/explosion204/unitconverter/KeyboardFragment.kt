@@ -16,6 +16,12 @@ class KeyboardFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
 
     interface OnNumButtonClickListener {
         fun onNumButtonClick(num: Int)
+
+        companion object {
+            const val CLEAR_SIGNAL = -3
+            const val DOT_SIGNAL = -2
+            const val DELETE_SIGNAL = -1
+        }
     }
 
     override fun onCreateView(
@@ -45,10 +51,10 @@ class KeyboardFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         var btn = view as Button
         when (btn.id) {
             R.id.dotButton -> {
-                callback.onNumButtonClick(-2)
+                callback.onNumButtonClick(OnNumButtonClickListener.DOT_SIGNAL)
             }
             R.id.deleteButton -> {
-                callback.onNumButtonClick(-1)
+                callback.onNumButtonClick(OnNumButtonClickListener.DELETE_SIGNAL)
             }
             else -> {
                 callback.onNumButtonClick(btn.text.toString().toInt())
@@ -58,7 +64,7 @@ class KeyboardFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
 
     override fun onLongClick(view: View): Boolean {
         if ((view as Button).id == R.id.deleteButton) {
-            callback.onNumButtonClick(-3)
+            callback.onNumButtonClick(OnNumButtonClickListener.CLEAR_SIGNAL)
         }
 
         return true;

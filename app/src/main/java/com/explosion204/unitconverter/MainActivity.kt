@@ -6,9 +6,12 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.content_main.*
 import org.json.JSONObject
@@ -18,20 +21,24 @@ import java.io.StringWriter
 
 
 class MainActivity : AppCompatActivity(),
-                     NavigationView.OnNavigationItemSelectedListener,
-                     KeyboardFragment.OnNumButtonClickListener
+                     NavigationView.OnNavigationItemSelectedListener
 {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
-    private lateinit var dataFragment: DataFragment
-    private lateinit var categories: JSONObject
+    private lateinit var dataViewModel: DataViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initRules()
+
+        dataViewModel = ViewModelProviders.of(this).get(DataViewModel::class.java)
+
+        if (dataViewModel.initRequired) {
+            dataViewModel.setCategories(getRules())
+        }
+
         setContentView(R.layout.activity_main)
 
-        dataFragment = fr_data as DataFragment
+        //dataFragment = fr_data as DataFragment
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this);
@@ -49,13 +56,13 @@ class MainActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.category_length -> {
-                dataFragment.modifyConverter(categories["Length"] as JSONObject)
+                dataViewModel.setCurrentCategory("Length")
             }
             R.id.category_weight -> {
-                dataFragment.modifyConverter(categories["Weight"] as JSONObject)
+                dataViewModel.setCurrentCategory("Weight")
             }
             else -> {
-                dataFragment.modifyConverter(categories["Volume"] as JSONObject)
+                dataViewModel.setCurrentCategory("Volume")
             }
 
         }
@@ -67,13 +74,11 @@ class MainActivity : AppCompatActivity(),
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
         if (fragment is KeyboardFragment) {
-            fragment.setNumpadClickListener(this)
+            //fragment.setNumpadClickListener(this)
+            fragment.setNumpadClickListener(dataViewModel)
         }
     }
 
-    override fun onNumButtonClick(num: Int) {
-        dataFragment.editInitialValue(num)
-    }
 
     fun onMenuButtonClick(view: View) {
         drawerLayout.openDrawer(Gravity.LEFT)
@@ -86,7 +91,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    private fun initRules() {
+    private fun getRules(): JSONObject {
         var stream = resources.openRawResource(R.raw.rules)
         var writer = StringWriter()
         var buffer = CharArray(1024)
@@ -107,6 +112,6 @@ class MainActivity : AppCompatActivity(),
         }
 
         var jsonString = writer.toString()
-        categories = JSONObject(jsonString)
+        return JSONObject(jsonString)
     }
 }
